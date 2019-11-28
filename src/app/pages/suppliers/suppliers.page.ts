@@ -3,43 +3,44 @@ import { ConnectionAppiService } from './../../services/connection-appi.service'
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-shipper',
-  templateUrl: './shipper.page.html',
-  styleUrls: ['./shipper.page.scss'],
+  selector: 'app-suppliers',
+  templateUrl: './suppliers.page.html',
+  styleUrls: ['./suppliers.page.scss'],
 })
-export class ShipperPage implements OnInit {
+export class SuppliersPage implements OnInit {
+
 
   constructor(public connectionService :ConnectionAppiService,public alertController: AlertController) { }
 
   ngOnInit() {
-    this.connectionService.initializeSelectedItems(10);
+    this.connectionService.initializeSelectedItems(11);
   }
 
   actualizaritems(){
     this.connectionService.getAllArtists().then(async()=>{});
   }
 
-  onSelected(actualSelectedShipper){
-    this.connectionService.actualSelectedShipper = actualSelectedShipper;
+  onSelected(actualSelectedSupplier){
+    this.connectionService.actualSelectedSupplier = actualSelectedSupplier;
     this.connectionService.opc = 1;
   }
 
-  saveactualSelectedShipper(){
+  saveactualSelectedSupplier(){
     if(this.connectionService.opc==0){
-      this.createactualSelectedShipper();
+      this.createactualSelectedSupplier();
     }else{
-      this.updateactualSelectedShipper();
+      this.updateactualSelectedSupplier();
     }
   }
 
-  async createactualSelectedShipper(){
+  async createactualSelectedSupplier(){
     this.connectionService.createArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(10);
+      this.connectionService.initializeSelectedItems(11);
 
       this.connectionService.getAllArtists().then(async()=>{
         const alert = await this.alertController.create({
           subHeader: 'Guardado Exitoso',
-          message: 'Se a registrado un nuevo Shipper',
+          message: 'Se a registrado un nuevo Proveedor',
           buttons: ['OK']
         });
     
@@ -48,14 +49,14 @@ export class ShipperPage implements OnInit {
     });
   }
 
-  async deleteactualSelectedShipper(){
+  async deleteactualSelectedSupplier(){
     this.connectionService.deleteArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(10);
+      this.connectionService.initializeSelectedItems(11);
 
       this.connectionService.getAllArtists().then(async()=>{
         const alert = await this.alertController.create({
           subHeader: 'Borrado Exitoso',
-          message: 'Se a borrado una Shipper.',
+          message: 'Se a borrado una Proveedor.',
           buttons: ['OK']
         });
     
@@ -64,16 +65,16 @@ export class ShipperPage implements OnInit {
     });
   }
 
-  async updateactualSelectedShipper(){
+  async updateactualSelectedSupplier(){
     this.connectionService.updateArtist().then(async ()=>{
       
     });
-    this.connectionService.initializeSelectedItems(10);
+    this.connectionService.initializeSelectedItems(11);
 
     this.connectionService.getAllArtists().then(async()=>{
       const alert = await this.alertController.create({
         subHeader: 'Actualizado Exitoso',
-        message: 'Se a actualizado una Shipper.',
+        message: 'Se a actualizado una Proveedor.',
         buttons: ['OK']
       });
   

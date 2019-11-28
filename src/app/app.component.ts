@@ -61,6 +61,21 @@ export class AppComponent {
       url: '/regions',
       icon: 'list'
     },
+    {
+      title: 'Transportista',
+      url: '/shipper',
+      icon: 'list'
+    },
+    {
+      title: 'Proveedores',
+      url: '/suppliers',
+      icon: 'list'
+    },
+    {
+      title: 'Territorios',
+      url: '/territories',
+      icon: 'list'
+    },
   ];
 
   constructor(

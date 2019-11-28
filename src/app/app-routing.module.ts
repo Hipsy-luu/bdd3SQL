@@ -55,6 +55,14 @@ const routes: Routes = [
     path: 'shipper',
     loadChildren: () => import('./pages/shipper/shipper.module').then( m => m.ShipperPageModule)
   },
+  {
+    path: 'suppliers',
+    loadChildren: () => import('./pages/suppliers/suppliers.module').then( m => m.SuppliersPageModule)
+  },
+  {
+    path: 'territories',
+    loadChildren: () => import('./pages/territories/territories.module').then( m => m.TerritoriesPageModule)
+  },
 ];
 
 @NgModule({
