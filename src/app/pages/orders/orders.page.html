@@ -1,0 +1,201 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Ordenes
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-header>
+              <ion-row>
+                <ion-col size="6">
+                  <ion-label *ngIf="connectionService.opc.toString()=='0'">Creando una nueva Orden</ion-label>
+                  <ion-label *ngIf="connectionService.opc.toString()=='1'">Editando la Orden con Id : {{connectionService.actualSelectedOrders.OrderID}}</ion-label>
+                </ion-col>
+              </ion-row>
+
+            </ion-card-header>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>CustomerID : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.CustomerID"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>EmployeeID : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.EmployeeID"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>OrderDate : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.OrderDate"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>RequiredDate : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.RequiredDate"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>ShippedDate : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.ShippedDate"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>ShipVia : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.ShipVia"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>Freight : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.Freight"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>ShipName : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.ShipName"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>ShipAddress : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.ShipAddress"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>ShipCity : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.ShipCity"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>ShipRegion : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.ShipRegion"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>ShipPostalCode : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.ShipPostalCode"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>ShipCountry : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedOrders.ShipCountry"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              
+              <ion-row>
+                <ion-col  size="4">
+                  <ion-button  (click)="saveactualSelectedOrder()" >
+                    Guardar
+                  </ion-button>
+                </ion-col>
+                <ion-col *ngIf="connectionService.opc.toString()=='1'"  size="4">
+                  <ion-button (click)="deleteactualSelectedOrder()">
+                    Eliminar
+                  </ion-button>
+                </ion-col>
+                <ion-col *ngIf="connectionService.opc.toString()=='1'"  size="4">
+                  <ion-button (click)="connectionService.initializeSelectedItems(6)" >
+                    Cancelar
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-content>
+            <ion-row>
+              <ion-button (click)="actualizaritems()" >
+                <ion-icon name="refresh"></ion-icon>
+              </ion-button>
+            </ion-row>
+            <ion-row>
+              <ion-col>OrderID</ion-col>
+              <ion-col>CustomerID</ion-col>
+              <ion-col>EmployeeID</ion-col>
+              <ion-col>OrderDate</ion-col>
+              <ion-col>RequiredDate</ion-col>
+              <ion-col>ShippedDate</ion-col>
+              <ion-col>ShipVia</ion-col>
+              <ion-col>Freight</ion-col>
+              <ion-col>ShipName</ion-col>
+              <ion-col>ShipAddress</ion-col>
+              <ion-col>ShipCity</ion-col>
+              <ion-col>ShipRegion</ion-col>
+              <ion-col>ShipPostalCode</ion-col>
+              <ion-col>ShipCountry</ion-col>
+
+              <ion-col>Acciones</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let order of connectionService.orders">
+              <ion-col>{{order.OrderID}}</ion-col>
+              <ion-col>{{order.CustomerID}}</ion-col>
+              <ion-col>{{order.EmployeeID}}</ion-col>
+              <ion-col>{{order.OrderDate}}</ion-col>
+              <ion-col>{{order.RequiredDate}}</ion-col>
+              <ion-col>{{order.ShippedDate}}</ion-col>
+              <ion-col>{{order.ShipVia}}</ion-col>
+              <ion-col>{{order.Freight}}</ion-col>
+              <ion-col>{{order.ShipName}}</ion-col>
+              <ion-col>{{order.ShipAddress}}</ion-col>
+              <ion-col>{{order.ShipCity}}</ion-col>
+              <ion-col>{{order.ShipRegion}}</ion-col>
+              <ion-col>{{order.ShipPostalCode}}</ion-col>
+              <ion-col>{{order.ShipCountry}}</ion-col>
+
+              <ion-col><button (click)="onSelected(order)">Editar</button></ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

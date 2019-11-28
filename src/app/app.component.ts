@@ -26,6 +26,41 @@ export class AppComponent {
       url: '/customers',
       icon: 'list'
     },
+    {
+      title: 'CustomerCustomerDemo',
+      url: '/customer-customer-demo',
+      icon: 'list'
+    },
+    {
+      title: 'Customer Demographics',
+      url: '/customer-demographics',
+      icon: 'list'
+    },
+    {
+      title: 'Employee Territories',
+      url: '/employee-territories',
+      icon: 'list'
+    },
+    {
+      title: 'Ordenes',
+      url: '/orders',
+      icon: 'list'
+    },
+    {
+      title: 'Detalle de Ordenes',
+      url: '/order-details',
+      icon: 'list'
+    },
+    {
+      title: 'Productos',
+      url: '/product',
+      icon: 'list'
+    },
+    {
+      title: 'Regiones',
+      url: '/regions',
+      icon: 'list'
+    },
   ];
 
   constructor(

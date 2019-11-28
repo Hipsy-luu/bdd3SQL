@@ -43,9 +43,9 @@ export class ConnectionAppiService {
   employees = [];
   categories = [];
   customers = [];
-  customerCustomerDemo= [];
-  customerDemographics= [];
-  employeeTerritories = [];
+  customersCustomerDemo= [];
+  customersDemographics= [];
+  employeesTerritories = [];
   orders = [];
   ordersDetails = [];
   products = [];
