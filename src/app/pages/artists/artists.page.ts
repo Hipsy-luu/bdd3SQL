@@ -1,6 +1,7 @@
 import { AlertController } from '@ionic/angular';
 import { ConnectionAppiService } from './../../services/connection-appi.service';
 import { Component, OnInit } from '@angular/core';
+import * as server from '../../services/server';
 
 @Component({
   selector: 'app-artists',
@@ -10,6 +11,8 @@ import { Component, OnInit } from '@angular/core';
 export class ArtistsPage implements OnInit {
 
   constructor(public connectionService :ConnectionAppiService,public alertController: AlertController) { }
+
+  
 
   ngOnInit() {
     this.connectionService.initializeSelectedItems(0);

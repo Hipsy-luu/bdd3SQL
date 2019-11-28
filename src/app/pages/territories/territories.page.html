@@ -38,12 +38,12 @@
               
               <ion-row>
                 <ion-col  size="4">
-                  <ion-button  (click)="saveactualSelectedTerritorie()" >
+                  <ion-button  (click)="saveItem(connectionService.actualSelectedTerritorie)" >
                     Guardar
                   </ion-button>
                 </ion-col>
                 <ion-col *ngIf="connectionService.opc.toString()=='1'"  size="4">
-                  <ion-button (click)="deleteactualSelectedTerritorie()">
+                  <ion-button (click)="deleteItem(connectionService.actualSelectedTerritorie)">
                     Eliminar
                   </ion-button>
                 </ion-col>
@@ -74,7 +74,7 @@
 
               <ion-col>Acciones</ion-col>
             </ion-row>
-            <ion-row *ngFor="let territorie of connectionService.territories">
+            <ion-row *ngFor="let territorie of objects">
               <ion-col>{{territorie.TerritoryID}}</ion-col>
               <ion-col>{{territorie.TerritoryDescription}}</ion-col>
               <ion-col>{{territorie.RegionID}}</ion-col>

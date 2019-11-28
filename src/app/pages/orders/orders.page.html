@@ -126,12 +126,12 @@
               
               <ion-row>
                 <ion-col  size="4">
-                  <ion-button  (click)="saveactualSelectedOrder()" >
+                  <ion-button  (click)="saveItem(connectionService.actualSelectedOrders)" >
                     Guardar
                   </ion-button>
                 </ion-col>
                 <ion-col *ngIf="connectionService.opc.toString()=='1'"  size="4">
-                  <ion-button (click)="deleteactualSelectedOrder()">
+                  <ion-button (click)="deleteItem(connectionService.actualSelectedOrders)">
                     Eliminar
                   </ion-button>
                 </ion-col>
@@ -156,7 +156,6 @@
               </ion-button>
             </ion-row>
             <ion-row>
-              <ion-col>OrderID</ion-col>
               <ion-col>CustomerID</ion-col>
               <ion-col>EmployeeID</ion-col>
               <ion-col>OrderDate</ion-col>
@@ -173,8 +172,7 @@
 
               <ion-col>Acciones</ion-col>
             </ion-row>
-            <ion-row *ngFor="let order of connectionService.orders">
-              <ion-col>{{order.OrderID}}</ion-col>
+            <ion-row *ngFor="let order of objects">
               <ion-col>{{order.CustomerID}}</ion-col>
               <ion-col>{{order.EmployeeID}}</ion-col>
               <ion-col>{{order.OrderDate}}</ion-col>

@@ -1,6 +1,8 @@
 import { AlertController } from '@ionic/angular';
 import { ConnectionAppiService } from './../../services/connection-appi.service';
 import { Component, OnInit } from '@angular/core';
+import * as server from '../../services/server';
+
 
 @Component({
   selector: 'app-categories',
@@ -12,74 +14,50 @@ export class CategoriesPage implements OnInit {
   
   constructor(public connectionService :ConnectionAppiService,public alertController: AlertController) { }
 
+  objects : any = [];
+  colectionId : String = 'Categories';
+
   ngOnInit() {
-    this.connectionService.initializeSelectedItems(1);
+    this.getItems();
+    this.connectionService.initializeSelectedItems(0);
   }
 
-  actualizaritems(){
-    this.connectionService.getAllArtists().then(async()=>{});
+  async getItems(){
+    await server.getItems(this.colectionId).then(data => {
+      this.objects = data;
+    });
+    this.connectionService.initializeSelectedItems(0);
   }
-
-  onSelected(Categorie){
-    this.connectionService.actualSelectedCategorie = Categorie;
+ 
+  onSelected(Employee){
+    this.connectionService.actualSelectedEmployee = Employee;
     this.connectionService.opc = 1;
   }
 
-  saveCategorie(){
+  saveItem(item){
     if(this.connectionService.opc==0){
-      this.createCategorie();
+      this.createItem();
     }else{
-      this.updateCategorie();
+      this.updateItem(item);
     }
   }
 
-  async createCategorie(){
-    this.connectionService.createArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(1);
-
-      this.connectionService.getAllArtists().then(async()=>{
-        const alert = await this.alertController.create({
-          subHeader: 'Guardado Exitoso',
-          message: 'Se a registrado un nuevo categoria.',
-          buttons: ['OK']
-        });
+  async createItem(){
+    server.insert(this.colectionId, this.connectionService.actualSelectedEmployee)
+    this.getItems();
     
-        await alert.present();
-      })
-    });
   }
 
-  async deleteCategorie(){
-    this.connectionService.deleteArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(1);
-
-      this.connectionService.getAllArtists().then(async()=>{
-        const alert = await this.alertController.create({
-          subHeader: 'Borrado Exitoso',
-          message: 'Se a borrado un categoria.',
-          buttons: ['OK']
-        });
-    
-        await alert.present();
-      })
-    });
-  }
-
-  async updateCategorie(){
-    this.connectionService.updateArtist().then(async ()=>{
+  async deleteItem(item){
+    await server.deleteItem(this.colectionId, item.id.toString()).catch(err =>{
+      console.log(err);
       
     });
-    this.connectionService.initializeSelectedItems(1);
-
-    this.connectionService.getAllArtists().then(async()=>{
-      const alert = await this.alertController.create({
-        subHeader: 'Actualizado Exitoso',
-        message: 'Se a actualizado un categoria.',
-        buttons: ['OK']
-      });
-  
-      await alert.present();
-    })
+    this.getItems();
   }
 
+  async updateItem(item){
+    await server.updateItem(this.colectionId, item, item.id.toString());
+    this.getItems();
+  }
 }

@@ -1,6 +1,7 @@
 import { AlertController } from '@ionic/angular';
 import { ConnectionAppiService } from './../../services/connection-appi.service';
 import { Component, OnInit } from '@angular/core';
+import * as server from '../../services/server';
 
 @Component({
   selector: 'app-customers',
@@ -12,74 +13,50 @@ export class CustomersPage implements OnInit {
   
   constructor(public connectionService :ConnectionAppiService,public alertController: AlertController) { }
 
+  objects : any = [];
+  colectionId : String = 'Customers';
+
   ngOnInit() {
-    this.connectionService.initializeSelectedItems(2);
+    this.getItems();
+    this.connectionService.initializeSelectedItems(0);
   }
 
-  actualizaritems(){
-    this.connectionService.getAllArtists().then(async()=>{});
+  async getItems(){
+    await server.getItems(this.colectionId).then(data => {
+      this.objects = data;
+    });
+    this.connectionService.initializeSelectedItems(0);
   }
-
-  onSelected(Customer){
-    this.connectionService.actualSelectedCustomer = Customer;
+ 
+  onSelected(Employee){
+    this.connectionService.actualSelectedEmployee = Employee;
     this.connectionService.opc = 1;
   }
 
-  saveCustomer(){
+  saveItem(item){
     if(this.connectionService.opc==0){
-      this.createCustomer();
+      this.createItem();
     }else{
-      this.updateCustomer();
+      this.updateItem(item);
     }
   }
 
-  async createCustomer(){
-    this.connectionService.createArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(2);
-
-      this.connectionService.getAllArtists().then(async()=>{
-        const alert = await this.alertController.create({
-          subHeader: 'Guardado Exitoso',
-          message: 'Se a registrado un nuevo cliente.',
-          buttons: ['OK']
-        });
+  async createItem(){
+    server.insert(this.colectionId, this.connectionService.actualSelectedEmployee)
+    this.getItems();
     
-        await alert.present();
-      })
-    });
   }
 
-  async deleteCustomer(){
-    this.connectionService.deleteArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(2);
-
-      this.connectionService.getAllArtists().then(async()=>{
-        const alert = await this.alertController.create({
-          subHeader: 'Borrado Exitoso',
-          message: 'Se a borrado un cliente.',
-          buttons: ['OK']
-        });
-    
-        await alert.present();
-      })
-    });
-  }
-
-  async updateCustomer(){
-    this.connectionService.updateArtist().then(async ()=>{
+  async deleteItem(item){
+    await server.deleteItem(this.colectionId, item.id.toString()).catch(err =>{
+      console.log(err);
       
     });
-    this.connectionService.initializeSelectedItems(2);
-
-    this.connectionService.getAllArtists().then(async()=>{
-      const alert = await this.alertController.create({
-        subHeader: 'Actualizado Exitoso',
-        message: 'Se a actualizado un cliente.',
-        buttons: ['OK']
-      });
-  
-      await alert.present();
-    })
+    this.getItems();
   }
 
+  async updateItem(item){
+    await server.updateItem(this.colectionId, item, item.id.toString());
+    this.getItems();
+  }
 }

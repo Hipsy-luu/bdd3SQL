@@ -1,6 +1,7 @@
 import { AlertController } from '@ionic/angular';
 import { ConnectionAppiService } from './../../services/connection-appi.service';
 import { Component, OnInit } from '@angular/core';
+import * as server from '../../services/server';
 
 @Component({
   selector: 'app-territories',
@@ -12,74 +13,51 @@ export class TerritoriesPage implements OnInit {
 
   constructor(public connectionService :ConnectionAppiService,public alertController: AlertController) { }
 
+  objects : any = [];
+  colectionId : String = 'Territories';
+
   ngOnInit() {
-    this.connectionService.initializeSelectedItems(12);
+    this.getItems();
+    this.connectionService.initializeSelectedItems(0);
   }
 
-  actualizaritems(){
-    this.connectionService.getAllArtists().then(async()=>{});
+  async getItems(){
+    await server.getItems(this.colectionId).then(data => {
+      this.objects = data;
+    });
+    this.connectionService.initializeSelectedItems(0);
   }
-
-  onSelected(actualSelectedTerritorie){
-    this.connectionService.actualSelectedTerritorie = actualSelectedTerritorie;
+ 
+  onSelected(Employee){
+    this.connectionService.actualSelectedEmployee = Employee;
     this.connectionService.opc = 1;
   }
 
-  saveactualSelectedTerritorie(){
+  saveItem(item){
     if(this.connectionService.opc==0){
-      this.createactualSelectedTerritorie();
+      this.createItem();
     }else{
-      this.updateactualSelectedTerritorie();
+      this.updateItem(item);
     }
   }
 
-  async createactualSelectedTerritorie(){
-    this.connectionService.createArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(12);
-
-      this.connectionService.getAllArtists().then(async()=>{
-        const alert = await this.alertController.create({
-          subHeader: 'Guardado Exitoso',
-          message: 'Se a registrado un nuevo Territorio',
-          buttons: ['OK']
-        });
+  async createItem(){
+    server.insert(this.colectionId, this.connectionService.actualSelectedEmployee)
+    this.getItems();
     
-        await alert.present();
-      })
-    });
   }
 
-  async deleteactualSelectedTerritorie(){
-    this.connectionService.deleteArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(12);
-
-      this.connectionService.getAllArtists().then(async()=>{
-        const alert = await this.alertController.create({
-          subHeader: 'Borrado Exitoso',
-          message: 'Se a borrado una Territorio.',
-          buttons: ['OK']
-        });
-    
-        await alert.present();
-      })
-    });
-  }
-
-  async updateactualSelectedTerritorie(){
-    this.connectionService.updateArtist().then(async ()=>{
+  async deleteItem(item){
+    await server.deleteItem(this.colectionId, item.id.toString()).catch(err =>{
+      console.log(err);
       
     });
-    this.connectionService.initializeSelectedItems(12);
+    this.getItems();
+  }
 
-    this.connectionService.getAllArtists().then(async()=>{
-      const alert = await this.alertController.create({
-        subHeader: 'Actualizado Exitoso',
-        message: 'Se a actualizado una Territorio.',
-        buttons: ['OK']
-      });
-  
-      await alert.present();
-    })
+  async updateItem(item){
+    await server.updateItem(this.colectionId, item, item.id.toString());
+    this.getItems();
   }
 
 }

@@ -1,6 +1,8 @@
 import { AlertController } from '@ionic/angular';
 import { ConnectionAppiService } from './../../services/connection-appi.service';
 import { Component, OnInit } from '@angular/core';
+import * as server from '../../services/server';
+
 
 @Component({
   selector: 'app-customer-customer-demo',
@@ -12,75 +14,51 @@ export class CustomerCustomerDemoPage implements OnInit {
   
   constructor(public connectionService :ConnectionAppiService,public alertController: AlertController) { }
 
+  objects : any = [];
+  colectionId : String = 'CustomerCustomerDemo';
+
   ngOnInit() {
-    this.connectionService.initializeSelectedItems(3);
+    this.getItems();
+    this.connectionService.initializeSelectedItems(0);
   }
 
-  actualizaritems(){
-    this.connectionService.getAllArtists().then(async()=>{});
+  async getItems(){
+    await server.getItems(this.colectionId).then(data => {
+      this.objects = data;
+    });
+    this.connectionService.initializeSelectedItems(0);
   }
-
-  onSelected(CustomerDemo){
-    this.connectionService.actualSelectedCustomerCustomerDemo = CustomerDemo;
+ 
+  onSelected(Employee){
+    this.connectionService.actualSelectedEmployee = Employee;
     this.connectionService.opc = 1;
   }
 
-  saveCustomerDemo(){
+  saveItem(item){
     if(this.connectionService.opc==0){
-      this.createCustomerDemo();
+      this.createItem();
     }else{
-      this.updateCustomerDemo();
+      this.updateItem(item);
     }
   }
 
-  async createCustomerDemo(){
-    this.connectionService.createArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(3);
-
-      this.connectionService.getAllArtists().then(async()=>{
-        const alert = await this.alertController.create({
-          subHeader: 'Guardado Exitoso',
-          message: 'Se a registrado un nuevo cliente demo.',
-          buttons: ['OK']
-        });
+  async createItem(){
+    server.insert(this.colectionId, this.connectionService.actualSelectedEmployee)
+    this.getItems();
     
-        await alert.present();
-      })
-    });
   }
 
-  async deleteCustomerDemo(){
-    this.connectionService.deleteArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(3);
-
-      this.connectionService.getAllArtists().then(async()=>{
-        const alert = await this.alertController.create({
-          subHeader: 'Borrado Exitoso',
-          message: 'Se a borrado un cliente demo.',
-          buttons: ['OK']
-        });
-    
-        await alert.present();
-      })
-    });
-  }
-
-  async updateCustomerDemo(){
-    this.connectionService.updateArtist().then(async ()=>{
+  async deleteItem(item){
+    await server.deleteItem(this.colectionId, item.id.toString()).catch(err =>{
+      console.log(err);
       
     });
-    this.connectionService.initializeSelectedItems(3);
-
-    this.connectionService.getAllArtists().then(async()=>{
-      const alert = await this.alertController.create({
-        subHeader: 'Actualizado Exitoso',
-        message: 'Se a actualizado un cliente demo.',
-        buttons: ['OK']
-      });
-  
-      await alert.present();
-    })
+    this.getItems();
   }
 
+  async updateItem(item){
+    await server.updateItem(this.colectionId, item, item.id.toString());
+    this.getItems();
+  }
 }
 

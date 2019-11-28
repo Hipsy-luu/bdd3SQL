@@ -1,6 +1,7 @@
 import { AlertController } from '@ionic/angular';
 import { ConnectionAppiService } from './../../services/connection-appi.service';
 import { Component, OnInit } from '@angular/core';
+import * as server from '../../services/server';
 
 @Component({
   selector: 'app-suppliers',
@@ -11,75 +12,51 @@ export class SuppliersPage implements OnInit {
 
 
   constructor(public connectionService :ConnectionAppiService,public alertController: AlertController) { }
+  objects : any = [];
+  colectionId : String = 'Suppliers';
 
   ngOnInit() {
-    this.connectionService.initializeSelectedItems(11);
+    this.getItems();
+    this.connectionService.initializeSelectedItems(0);
   }
 
-  actualizaritems(){
-    this.connectionService.getAllArtists().then(async()=>{});
+  async getItems(){
+    await server.getItems(this.colectionId).then(data => {
+      this.objects = data;
+    });
+    this.connectionService.initializeSelectedItems(0);
   }
-
-  onSelected(actualSelectedSupplier){
-    this.connectionService.actualSelectedSupplier = actualSelectedSupplier;
+ 
+  onSelected(Employee){
+    this.connectionService.actualSelectedEmployee = Employee;
     this.connectionService.opc = 1;
   }
 
-  saveactualSelectedSupplier(){
+  saveItem(item){
     if(this.connectionService.opc==0){
-      this.createactualSelectedSupplier();
+      this.createItem();
     }else{
-      this.updateactualSelectedSupplier();
+      this.updateItem(item);
     }
   }
 
-  async createactualSelectedSupplier(){
-    this.connectionService.createArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(11);
-
-      this.connectionService.getAllArtists().then(async()=>{
-        const alert = await this.alertController.create({
-          subHeader: 'Guardado Exitoso',
-          message: 'Se a registrado un nuevo Proveedor',
-          buttons: ['OK']
-        });
+  async createItem(){
+    server.insert(this.colectionId, this.connectionService.actualSelectedEmployee)
+    this.getItems();
     
-        await alert.present();
-      })
-    });
   }
 
-  async deleteactualSelectedSupplier(){
-    this.connectionService.deleteArtist().then(async ()=>{
-      this.connectionService.initializeSelectedItems(11);
-
-      this.connectionService.getAllArtists().then(async()=>{
-        const alert = await this.alertController.create({
-          subHeader: 'Borrado Exitoso',
-          message: 'Se a borrado una Proveedor.',
-          buttons: ['OK']
-        });
-    
-        await alert.present();
-      })
-    });
-  }
-
-  async updateactualSelectedSupplier(){
-    this.connectionService.updateArtist().then(async ()=>{
+  async deleteItem(item){
+    await server.deleteItem(this.colectionId, item.id.toString()).catch(err =>{
+      console.log(err);
       
     });
-    this.connectionService.initializeSelectedItems(11);
+    this.getItems();
+  }
 
-    this.connectionService.getAllArtists().then(async()=>{
-      const alert = await this.alertController.create({
-        subHeader: 'Actualizado Exitoso',
-        message: 'Se a actualizado una Proveedor.',
-        buttons: ['OK']
-      });
-  
-      await alert.present();
-    })
+  async updateItem(item){
+    await server.updateItem(this.colectionId, item, item.id.toString());
+    this.getItems();
   }
 
 }

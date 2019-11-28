@@ -104,12 +104,12 @@
               
               <ion-row>
                 <ion-col  size="4">
-                  <ion-button  (click)="saveactualSelectedSupplier()" >
+                  <ion-button  (click)="saveItem(connectionService.actualSelectedSupplier)" >
                     Guardar
                   </ion-button>
                 </ion-col>
                 <ion-col *ngIf="connectionService.opc.toString()=='1'"  size="4">
-                  <ion-button (click)="deleteactualSelectedSupplier()">
+                  <ion-button (click)="deleteItem(connectionService.actualSelectedSupplier)">
                     Eliminar
                   </ion-button>
                 </ion-col>
@@ -150,7 +150,7 @@
 
               <ion-col>Acciones</ion-col>
             </ion-row>
-            <ion-row *ngFor="let supplier of connectionService.suppliers">
+            <ion-row *ngFor="let supplier of objects">
               <ion-col>{{supplier.ShipperID}}</ion-col>
               <ion-col>{{supplier.CompanyName}}</ion-col>
               <ion-col>{{supplier.ContactName}}</ion-col>
