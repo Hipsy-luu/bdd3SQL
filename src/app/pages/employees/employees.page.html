@@ -1,0 +1,244 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Empleados
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <ion-row>
+                <ion-col size="6">
+                  <ion-label *ngIf="connectionService.opc.toString()=='0'">Creando un nuevo empleado</ion-label>
+                  <ion-label *ngIf="connectionService.opc.toString()=='1'">Editando el empleado con Id : {{connectionService.actualSelectedEmployee.EmployeeID}}</ion-label>
+                </ion-col>
+              </ion-row>
+
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>Apellido : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.LastName"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>Nombre : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.FirstName"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>Title : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.Title"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>TitleOfCourtesy : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.TitleOfCourtesy"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>BirthDate : </ion-label>
+                    <ion-datetime [(ngModel)]="connectionService.actualSelectedEmployee.BirthDate"  type="text" placeholder="Awesome Input"></ion-datetime>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>HireDate : </ion-label>
+                    <ion-datetime [(ngModel)]="connectionService.actualSelectedEmployee.HireDate"  type="text" placeholder="Awesome Input"></ion-datetime>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>Address : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.Address"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>City : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.City"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>Region : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.Region"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>PostalCode : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.PostalCode"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>Country : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.Country"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>HomePhone : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.HomePhone"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>Extension : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.Extension"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>Photo : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.Photo"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>Photo : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.Photo"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>Notes : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.Notes"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>ReportsTo : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.ReportsTo"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-item>
+                    <ion-label>PhotoPath : </ion-label>
+                    <ion-input [(ngModel)]="connectionService.actualSelectedEmployee.PhotoPath"  type="text" placeholder="Awesome Input"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              
+              <ion-row>
+                <ion-col  size="4">
+                  <ion-button  (click)="saveEmployee()" >
+                    Guardar
+                  </ion-button>
+                </ion-col>
+                <ion-col *ngIf="connectionService.opc.toString()=='1'"  size="4">
+                  <ion-button (click)="deleteEmployee()">
+                    Eliminar
+                  </ion-button>
+                </ion-col>
+                <ion-col *ngIf="connectionService.opc.toString()=='1'"  size="4">
+                  <ion-button (click)="connectionService.initializeSelectedItems(0)" >
+                    Cancelar
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-content>
+            <ion-row>
+              <ion-button (click)="actualizaritems()" >
+                <ion-icon name="refresh"></ion-icon>
+              </ion-button>
+            </ion-row>
+            <ion-row>
+              <ion-col>EmployeeID</ion-col>
+              <ion-col>LastName</ion-col>
+              <ion-col>FirstName</ion-col>
+              <ion-col>Title</ion-col>
+              <ion-col>TitleOfCourtesy</ion-col>
+              <ion-col>BirthDate</ion-col>
+              <ion-col>HireDate</ion-col>
+              <ion-col>Address</ion-col>
+              <ion-col>City</ion-col>
+              <ion-col>Region</ion-col>
+              <ion-col>PostalCode</ion-col>
+              <ion-col>Country</ion-col>
+              <ion-col>HomePhone</ion-col>
+              <ion-col>Extension</ion-col>
+              <ion-col>Photo</ion-col>
+              <ion-col>Apellido</ion-col>
+              <ion-col>Notes</ion-col>
+              <ion-col>ReportsTo</ion-col>
+              <ion-col>PhotoPath</ion-col>
+              <ion-col>Acciones</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let employee of connectionService.employees">
+              <ion-col>{{employee.EmployeeID}}</ion-col>
+              <ion-col>{{employee.LastName}}</ion-col>
+              <ion-col>{{employee.FirstName}}</ion-col>
+              <ion-col>{{employee.Title}}</ion-col>
+              <ion-col>{{employee.TitleOfCourtesy}}</ion-col>
+              <ion-col>{{employee.BirthDate}}</ion-col>
+              <ion-col>{{employee.HireDate}}</ion-col>
+              <ion-col>{{employee.Address}}</ion-col>
+              <ion-col>{{employee.City}}</ion-col>
+              <ion-col>{{employee.Region}}</ion-col>
+              <ion-col>{{employee.PostalCode}}</ion-col>
+              <ion-col>{{employee.Country}}</ion-col>
+              <ion-col>{{employee.HomePhone}}</ion-col>
+              <ion-col>{{employee.Extension}}</ion-col>
+              <ion-col>{{employee.Photo}}</ion-col>
+              <ion-col>{{employee.Notes}}</ion-col>
+              <ion-col>{{employee.ReportsTo}}</ion-col>
+
+              <ion-col><button (click)="onSelected(employee)">Editar</button></ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+        
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
